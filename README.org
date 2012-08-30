@@ -1,7 +1,7 @@
 * output
 
 This package consists mainly of a a collection of useful formatted output functions.
-All use *STANDARD-OUTPUT*; none require an argument to specify the stream.
+All use \*STANDARD-OUTPUT*; none require an argument to specify the stream.
 The arguments follow a convention, usually, but there are exceptions.
 The first argument is usually the datum to be output.
 The second is usually the number of columns (minimum) to use.
@@ -56,7 +56,7 @@ Use BREAKLINE to go to a new line before some output
 Use OUTPUT to concatenate several pieces of output.
  OUTPUT is unlike the other functions in that the first argument
  specifies a stream; or NIL means cons up a string, or T means
- use *STANDARD-OUTPUT*.  NIL and T must appear explicitly because
+ use \*STANDARD-OUTPUT*.  NIL and T must appear explicitly because
  they are checked for at macro expansion time.  The remaining args
  to OUTPUT perform output.  A string is simply printed.
  Anything else is executed to perform the output and its value is ignored.
