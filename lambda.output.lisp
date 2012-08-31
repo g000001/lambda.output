@@ -336,7 +336,7 @@ If MINWIDTH is specified, we pad on the right to that width.
                   (send *standard-output* :operation-handled-p :display-lozenged-string))
              (send *standard-output* :display-lozenged-string
                    (output nil (ochar char0 :editor)))
-           (ochar char0 :editor))
+             (ochar char0 :editor))
          (when top-explain
            (ochar-explain-top-character char1)))
         #|((tv:char-mouse-p char0)
@@ -393,33 +393,35 @@ If MINWIDTH is specified, we pad on the right to that width.
              ;; In :BRIEF style, get one only if there are control bits.
              (when (or bits (neq style :brief))
                (setq chname (ochar-get-character-name char1)))
-             (unless (eq style :brief) (send *standard-output* :string-out "#\\"))
+             #|(unless (eq style :brief) (send *standard-output* :string-out "#\\"))|#
              ;; Now announce the control bits.
-             (if bits (send *standard-output*
+             #|(if bits nil#|(send *standard-output*
                             :string-out
                             (nth bits
                                  '("" "c-" "m-" "c-m-"
                                    "s-" "c-s-" "m-s-" "c-m-s-"
                                    "h-" "c-h-" "m-h-" "c-m-h-"
-                                   "s-h-" "c-s-h-" "m-s-h-" "c-m-s-h-"))))
+                                   "s-h-" "c-s-h-" "m-s-h-" "c-m-s-h-")))|#)|#
              ;; If we did get a character's long-name, for whatever reason, use it.
-             #|(if chname
-                 (let ((str (string-downcase chname)))
-                   (if (eq style :brief)
-                       (setf (char str 0) (char-upcase (char str 0))))
-                   (send *standard-output* :string-out str)
-                   ;(return-array (prog1 str (setq str nil)))
-                   )
-               ;; Otherwise print the character itself.
-               ;; In :READ style, print a slash before chars that want it.
-               (and (neq style :brief)
-                    bits
-                    ;; If using #\ but using the character, not the name, may need a slash.
-                    (if (lower-case-p char1)
-                        (send *standard-output* :string-out "sh-")
-                      (if (si:character-needs-quoting-p char1)
-                          (tyo (si:pttbl-slash *readtable*)))))
-               (write-char char1))|#)
+             (let ((char1 (code-char char1)))
+               (if chname
+                   (let ((str (string-downcase chname)))
+                     (if (eq style :brief)
+                         (setf (char str 0) (char-upcase (char str 0))))
+                     (send *standard-output* :string-out str)
+                                        ;(return-array (prog1 str (setq str nil)))
+                     )
+                   ;; Otherwise print the character itself.
+                   ;; In :READ style, print a slash before chars that want it.
+                   (and (neq style :brief)
+                        bits
+                        ;; If using #\ but using the character, not the name, may need a slash.
+                        (if (lower-case-p char1)
+                            (send *standard-output* :string-out "sh-")
+                            (if (zl:character-needs-quoting-p char1)
+                                #|(tyo (si:pttbl-slash *readtable*))|#
+                                (princ #\\)))))
+               (write-char char1)))
             (:sail (send *standard-output* :string-out (nth (char-bits char0)
                                                              '("" "" "" ""
                                                                "" "" "" ""
