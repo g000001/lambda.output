@@ -28,7 +28,7 @@
                           :english-ordinal-print)
   (:shadowing-import-from
    :zl
-   :^
+   :^ :*nopoint
    :negative-powers-of-10f0-table
    :powers-of-10f0-table
    :powers-of-10f0-table-length
