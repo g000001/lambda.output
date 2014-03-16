@@ -524,7 +524,7 @@ do a TERPRI and execute PRINT-IF-TERPRI before actually outputting."
                  (length ,gensym))
               ,linel)
        (terpri)
-       ,(output t print-if-terpri))
+       (output t ,print-if-terpri))
      (princ ,gensym)))
 
 
