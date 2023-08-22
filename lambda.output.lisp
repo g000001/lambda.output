@@ -122,7 +122,7 @@ Otherwise, STREAM is evaluated and the value used as a stream."
   (defun output-expand (form)
     (cond ((stringp form) `(write-string ,form))
           ((numberp form) `(write ,form))
-          ((characterp form) `(write-char form))
+          ((characterp form) `(write-char ,form))
           (t form) )))
 
 (defun plural (number singular &optional plural)
@@ -443,7 +443,10 @@ If MINWIDTH is specified, we pad on the right to that width.
   (setq char (code-char char))
   (unless (and (graphic-char-p char)
                (char/= char #\space)
-               (char/= char #\altmode))
+               #-(:or :ecl :clisp :abcl)
+               (char/= char #\altmode)
+               #+(:or :ecl :clisp :abcl)
+               (char/= char #\Esc))
     (char-name char)))
 
 ;;; If char is a top or greek character, explain how to type it.

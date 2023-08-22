@@ -20,14 +20,13 @@
 (defpackage :lambda.output.internal
   (:use :lambda.format :cl :named-readtables :fiveam
         :lambda.output)
-  (:shadowing-import-from :lambda.format :format)
+  (:shadowing-import-from :lambda.format :format :time)
   (:shadowing-import-from :lambda.format.internal 
                           :send
                           :roman-step
                           :english-print
                           :english-ordinal-print)
-  (:shadowing-import-from
-   :zl
+  (:shadowing-import-from :zl
    :^ :*nopoint
    :negative-powers-of-10f0-table
    :powers-of-10f0-table
@@ -50,6 +49,5 @@
    :time-increment :with-stack-list :with-stack-list* :without-interrupts
    :xr-table-setup
    :≤ :≥ :≠ :get-pname :string-length :time-difference :substring
-   :nsubstring :substring
-   :string-pluralize))
+   :nsubstring :substring :string-pluralize))
 
