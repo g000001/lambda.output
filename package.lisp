@@ -18,7 +18,7 @@
 
 
 (defpackage :lambda.output.internal
-  (:use :lambda.format :cl :named-readtables :fiveam
+  (:use :lambda.format :cl :fiveam
         :lambda.output)
   (:shadowing-import-from :lambda.format :format :time)
   (:shadowing-import-from :lambda.format.internal 
